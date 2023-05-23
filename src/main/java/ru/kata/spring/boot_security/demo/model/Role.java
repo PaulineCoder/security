@@ -17,6 +17,7 @@ public class Role implements GrantedAuthority {
     @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "roles")
     private Set<User> users;
 
+
     public Role() {
     }
 

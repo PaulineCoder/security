@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
@@ -12,7 +13,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-@Component
+@Repository
 public class UserDaoImp implements UserDao {
 
     @PersistenceContext
@@ -34,16 +35,6 @@ public class UserDaoImp implements UserDao {
     @Override
     public void add(User user) {
         entityManager.persist(user);
-        if(user.getRoleName().equals("ROLE_ADMIN")) {
-            Query query = entityManager.createNativeQuery("insert into m_users_roles(user_id, roles_id) VALUES (?,?)");
-            query.setParameter(1,user.getId());
-            query.setParameter(2, 2);
-            query.executeUpdate();
-        }
-        Query query = entityManager.createNativeQuery("insert into m_users_roles(user_id, roles_id) VALUES (?,?)");
-        query.setParameter(1,user.getId());
-        query.setParameter(2, 1);
-        query.executeUpdate();
     }
 
 

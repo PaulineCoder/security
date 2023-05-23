@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,21 +30,11 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String roleName;
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Set<Role> roles;
 
 
     public User() {
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
     public User(String name, String surname, int age) {
