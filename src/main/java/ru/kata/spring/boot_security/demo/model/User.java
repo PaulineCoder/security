@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.model;
 
-
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,6 +28,9 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private String roleName;
+
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Set<Role> roles;
 
@@ -37,10 +38,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, int age) {
+    public User(String name, String surname, int age, String roleName) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.roleName = roleName;
     }
 
     public Long getId() {
@@ -73,6 +75,14 @@ public class User implements UserDetails {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Set<Role> getRoles() {
